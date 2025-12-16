@@ -950,48 +950,62 @@
         }, 200);
       }
 
-      // Tab 切换
-      document.getElementById('tabGong').addEventListener('click', function () {
-        if (window.app && window.app.setRecordType) {
-          window.app.setRecordType('gong');
-        } else {
-          setType('gong');
-        }
-      });
-
-      document.getElementById('tabGuo').addEventListener('click', function () {
-        if (window.app && window.app.setRecordType) {
-          window.app.setRecordType('guo');
-        } else {
-          setType('guo');
-        }
-      });
-
-      // 分值卡片选择
-      document.querySelectorAll('.amount-card').forEach(function (card) {
-        card.addEventListener('click', function () {
-          document.querySelectorAll('.amount-card').forEach(function (c) {
-            c.classList.remove('active');
-          });
-          card.classList.add('active');
+      // Tab 切换 - 确保元素存在后再绑定
+      var tabGong = document.getElementById('tabGong');
+      var tabGuo = document.getElementById('tabGuo');
+      if (tabGong) {
+        tabGong.addEventListener('click', function () {
+          if (window.app && window.app.setRecordType) {
+            window.app.setRecordType('gong');
+          } else {
+            setType('gong');
+          }
         });
-      });
+      }
+      
+      if (tabGuo) {
+        tabGuo.addEventListener('click', function () {
+          if (window.app && window.app.setRecordType) {
+            window.app.setRecordType('guo');
+          } else {
+            setType('guo');
+          }
+        });
+      }
 
-      // 返回按钮：跳转到 home.html
-      document.getElementById('backBtn').addEventListener('click', function () {
-        if (window.app && window.app.navigateTo) {
-          window.app.navigateTo('home');
-        } else {
-          window.location.href = 'home.html';
-        }
-      });
+      // 分值卡片选择 - 确保元素存在后再绑定
+      var amountCards = document.querySelectorAll('.amount-card');
+      if (amountCards.length > 0) {
+        amountCards.forEach(function (card) {
+          card.addEventListener('click', function () {
+            document.querySelectorAll('.amount-card').forEach(function (c) {
+              c.classList.remove('active');
+            });
+            card.classList.add('active');
+          });
+        });
+      }
 
-      // 保存
+      // 返回按钮：跳转到 home.html - 确保元素存在后再绑定
+      var backBtn = document.getElementById('backBtn');
+      if (backBtn) {
+        backBtn.addEventListener('click', function () {
+          if (window.app && window.app.navigateTo) {
+            window.app.navigateTo('home');
+          } else {
+            window.location.href = 'home.html';
+          }
+        });
+      }
+
+      // 保存按钮 - 确保元素存在后再绑定
       var saveBtn = document.getElementById('saveBtn');
-      saveBtn.addEventListener('click', function () {
-        if (saveBtn.disabled) return; // 防止重复点击
-        saveRecord();
-      });
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function () {
+          if (saveBtn.disabled) return; // 防止重复点击
+          saveRecord();
+        });
+      }
 
       // 存储选中的图片和音频
       var selectedImages = [];
@@ -1024,40 +1038,43 @@
         updateImagePreview();
       });
 
-      // 图片按钮
-      document.getElementById('photoBtn').addEventListener('click', function() {
-        if (!window.imageHandler) {
-          alert('图片功能未加载');
-          return;
-        }
-
-        var remainingSlots = 3 - selectedImages.length;
-        if (remainingSlots <= 0) {
-          alert('最多只能添加3张图片');
-          return;
-        }
-
-        window.imageHandler.selectImages(
-          function(images) {
-            // 只添加剩余数量的图片
-            var toAdd = images.slice(0, remainingSlots);
-            selectedImages = selectedImages.concat(toAdd);
-            updateImagePreview();
-          },
-          function(error) {
-            if (error === '请先登录') {
-              window.modals && window.modals.showLoginRequiredModal({
-                messageType: 'recordLimit',
-                onSuccess: function() {
-                  updateAttachButtons();
-                }
-              });
-            } else {
-              alert(error || '选择图片失败');
-            }
+      // 图片按钮 - 确保元素存在后再绑定
+      var photoBtn = document.getElementById('photoBtn');
+      if (photoBtn) {
+        photoBtn.addEventListener('click', function() {
+          if (!window.imageHandler) {
+            alert('图片功能未加载');
+            return;
           }
-        );
-      });
+
+          var remainingSlots = 3 - selectedImages.length;
+          if (remainingSlots <= 0) {
+            alert('最多只能添加3张图片');
+            return;
+          }
+
+          window.imageHandler.selectImages(
+            function(images) {
+              // 只添加剩余数量的图片
+              var toAdd = images.slice(0, remainingSlots);
+              selectedImages = selectedImages.concat(toAdd);
+              updateImagePreview();
+            },
+            function(error) {
+              if (error === '请先登录') {
+                window.modals && window.modals.showLoginRequiredModal({
+                  messageType: 'recordLimit',
+                  onSuccess: function() {
+                    updateAttachButtons();
+                  }
+                });
+              } else {
+                alert(error || '选择图片失败');
+              }
+            }
+          );
+        });
+      }
 
       // 更新图片预览
       function updateImagePreview() {
@@ -1099,58 +1116,62 @@
         });
       }
 
-      // 录音按钮 - 长按录音，单击语音输入
+      // 录音按钮 - 长按录音，单击语音输入 - 确保元素存在后再绑定
       var voiceBtn = document.getElementById('voiceBtn');
-      var longPressTimer = null;
-      var isLongPress = false;
+      if (!voiceBtn) {
+        console.warn('voiceBtn 元素未找到，跳过录音按钮事件绑定');
+      } else {
+        var longPressTimer = null;
+        var isLongPress = false;
 
-      voiceBtn.addEventListener('mousedown', function(e) {
-        isLongPress = false;
-        longPressTimer = setTimeout(function() {
-          isLongPress = true;
-          startRecording();
-        }, 500); // 500ms 长按
-      });
+        voiceBtn.addEventListener('mousedown', function(e) {
+          isLongPress = false;
+          longPressTimer = setTimeout(function() {
+            isLongPress = true;
+            startRecording();
+          }, 500); // 500ms 长按
+        });
 
-      voiceBtn.addEventListener('mouseup', function(e) {
-        if (longPressTimer) {
-          clearTimeout(longPressTimer);
-          longPressTimer = null;
-        }
-        
-        if (!isLongPress) {
-          // 单击 - 语音输入
-          startSpeechInput();
-        }
-      });
+        voiceBtn.addEventListener('mouseup', function(e) {
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+          
+          if (!isLongPress) {
+            // 单击 - 语音输入
+            startSpeechInput();
+          }
+        });
 
-      voiceBtn.addEventListener('mouseleave', function(e) {
-        if (longPressTimer) {
-          clearTimeout(longPressTimer);
-          longPressTimer = null;
-        }
-      });
+        voiceBtn.addEventListener('mouseleave', function(e) {
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+        });
 
-      // 触摸事件支持
-      voiceBtn.addEventListener('touchstart', function(e) {
-        isLongPress = false;
-        longPressTimer = setTimeout(function() {
-          isLongPress = true;
-          startRecording();
-        }, 500);
-      });
+        // 触摸事件支持
+        voiceBtn.addEventListener('touchstart', function(e) {
+          isLongPress = false;
+          longPressTimer = setTimeout(function() {
+            isLongPress = true;
+            startRecording();
+          }, 500);
+        });
 
-      voiceBtn.addEventListener('touchend', function(e) {
-        e.preventDefault();
-        if (longPressTimer) {
-          clearTimeout(longPressTimer);
-          longPressTimer = null;
-        }
-        
-        if (!isLongPress) {
-          startSpeechInput();
-        }
-      });
+        voiceBtn.addEventListener('touchend', function(e) {
+          e.preventDefault();
+          if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+          }
+          
+          if (!isLongPress) {
+            startSpeechInput();
+          }
+        });
+      }
 
       // 开始录音
       function startRecording() {
@@ -1448,11 +1469,48 @@
     });
     
     // 在 DOMContentLoaded 时调用初始化函数
+    // 确保所有脚本都加载完成后再初始化
+    function startInit() {
+      // 检查必要的元素是否存在
+      if (!document.getElementById('tabGong') || !document.getElementById('tabGuo')) {
+        console.warn('页面元素未准备好，延迟初始化');
+        setTimeout(startInit, 100);
+        return;
+      }
+      
+      // 检查必要的 JS 模块是否加载
+      if (!window.i18n) {
+        console.warn('i18n 模块未加载，延迟初始化');
+        setTimeout(startInit, 100);
+        return;
+      }
+      
+      // 执行初始化
+      try {
+        initRecordPage();
+        console.log('✓ record.html 初始化完成');
+      } catch (error) {
+        console.error('初始化失败:', error);
+        // 即使出错也尝试绑定基本事件
+        setTimeout(function() {
+          try {
+            initRecordPage();
+          } catch (e) {
+            console.error('重试初始化失败:', e);
+          }
+        }, 500);
+      }
+    }
+    
+    // 等待 DOM 和脚本都加载完成
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initRecordPage);
+      document.addEventListener('DOMContentLoaded', function() {
+        // 再等待一下，确保所有脚本都执行完
+        setTimeout(startInit, 50);
+      });
     } else {
-      // DOM 已经加载完成，直接调用
-      initRecordPage();
+      // DOM 已经加载完成，但可能脚本还在加载
+      setTimeout(startInit, 100);
     }
   </script>
 </body>
