@@ -1,1 +1,227 @@
+/**
+ * 功过格 App - 主题变量系统
+ * Theme System for GongGuoGe App
+ */
+
+/* ===== 基础变量 ===== */
+:root {
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* 动画时长 */
+  --transition-fast: 0.15s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+  
+  /* 字体 */
+  --font-zh: 'Noto Serif SC', 'PingFang SC', 'Hiragino Sans GB', serif;
+  --font-ja: 'Noto Serif JP', 'Hiragino Mincho Pro', serif;
+  --font-en: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
+  
+  /* 手机壳尺寸 */
+  --phone-width: 375px;
+  --phone-height: 812px;
+  --phone-radius: 54px;
+  --screen-radius: 46px;
+}
+
+/* ===== 中文主题 - 水墨印章风 ===== */
+body.theme-zh {
+  --color-primary: #2D6A4F;
+  --color-primary-light: #4A8B6E;
+  --color-primary-dark: #1B4332;
+  --color-secondary: #1F2526;
+  --color-accent: #CDA434;
+  --color-accent-red: #C53D43;
+  
+  --color-bg: #FAF7EF;
+  --color-bg-secondary: #F5F0E5;
+  --color-bg-card: #FDFBF7;
+  --color-bg-overlay: rgba(31, 37, 38, 0.3);
+  
+  --color-text: #1F2526;
+  --color-text-secondary: rgba(31, 37, 38, 0.6);
+  --color-text-tertiary: rgba(31, 37, 38, 0.35);
+  
+  --color-border: rgba(45, 106, 79, 0.15);
+  --color-border-light: rgba(31, 37, 38, 0.06);
+  
+  --color-gong: #2D6A4F;
+  --color-guo: #1F2526;
+  
+  --color-shadow: rgba(45, 106, 79, 0.15);
+  --color-shadow-dark: rgba(0, 0, 0, 0.08);
+  
+  --gradient-primary: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
+  --gradient-bg: linear-gradient(180deg, #FDFBF7 0%, #F8F5EF 100%);
+  --gradient-card: linear-gradient(165deg, #FDFBF7 0%, #F8F6F0 50%, #F2EFE8 100%);
+  
+  --font-family: var(--font-zh);
+  
+  /* 纸张纹理 */
+  --paper-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* 中文主题 Dark 模式 */
+body.theme-zh.dark {
+  --color-bg: #1A1D1E;
+  --color-bg-secondary: #232728;
+  --color-bg-card: #2A2E30;
+  --color-bg-overlay: rgba(0, 0, 0, 0.6);
+  
+  --color-text: #E8E4DC;
+  --color-text-secondary: rgba(232, 228, 220, 0.6);
+  --color-text-tertiary: rgba(232, 228, 220, 0.35);
+  
+  --color-border: rgba(45, 106, 79, 0.25);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  
+  --gradient-bg: linear-gradient(180deg, #1A1D1E 0%, #232728 100%);
+  --gradient-card: linear-gradient(165deg, #2A2E30 0%, #252829 100%);
+}
+
+/* ===== 日文主题 - 禅意侘寂风 ===== */
+body.theme-ja {
+  --color-primary: #A79473;
+  --color-primary-light: #C4B69A;
+  --color-primary-dark: #8A7A5E;
+  --color-secondary: #3D3D3D;
+  --color-accent: #8B9A7D;
+  --color-accent-red: #D4A5A5;
+  
+  --color-bg: #F7F7F5;
+  --color-bg-secondary: #EFEFE9;
+  --color-bg-card: #FAFAF8;
+  --color-bg-overlay: rgba(61, 61, 61, 0.25);
+  
+  --color-text: #3D3D3D;
+  --color-text-secondary: rgba(61, 61, 61, 0.6);
+  --color-text-tertiary: rgba(61, 61, 61, 0.35);
+  
+  --color-border: rgba(167, 148, 115, 0.2);
+  --color-border-light: rgba(61, 61, 61, 0.06);
+  
+  --color-gong: #A79473;
+  --color-guo: #7A7A7A;
+  
+  --color-shadow: rgba(167, 148, 115, 0.12);
+  --color-shadow-dark: rgba(0, 0, 0, 0.06);
+  
+  --gradient-primary: linear-gradient(135deg, #A79473 0%, #8A7A5E 100%);
+  --gradient-bg: linear-gradient(180deg, #F7F7F5 0%, #EFEFE9 100%);
+  --gradient-card: linear-gradient(165deg, #FAFAF8 0%, #F5F5F2 100%);
+  
+  --font-family: var(--font-ja);
+  
+  --paper-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+/* 日文主题 Dark 模式 */
+body.theme-ja.dark {
+  --color-bg: #1E1E1C;
+  --color-bg-secondary: #282826;
+  --color-bg-card: #323230;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  --color-text: #E0DED8;
+  --color-text-secondary: rgba(224, 222, 216, 0.6);
+  --color-text-tertiary: rgba(224, 222, 216, 0.35);
+  
+  --color-border: rgba(167, 148, 115, 0.25);
+  --color-border-light: rgba(255, 255, 255, 0.06);
+  
+  --gradient-bg: linear-gradient(180deg, #1E1E1C 0%, #282826 100%);
+  --gradient-card: linear-gradient(165deg, #323230 0%, #2C2C2A 100%);
+}
+
+/* ===== 英文主题 - 极简心理学风 ===== */
+body.theme-en {
+  --color-primary: #4FACFE;
+  --color-primary-light: #7DC4FF;
+  --color-primary-dark: #2B8FE0;
+  --color-secondary: #1A1A2E;
+  --color-accent: #43E97B;
+  --color-accent-red: #FF6B6B;
+  
+  --color-bg: #FFFFFF;
+  --color-bg-secondary: #F8FAFE;
+  --color-bg-card: #FFFFFF;
+  --color-bg-overlay: rgba(26, 26, 46, 0.3);
+  
+  --color-text: #1A1A2E;
+  --color-text-secondary: rgba(26, 26, 46, 0.6);
+  --color-text-tertiary: rgba(26, 26, 46, 0.35);
+  
+  --color-border: rgba(79, 172, 254, 0.2);
+  --color-border-light: rgba(26, 26, 46, 0.08);
+  
+  --color-gong: #4FACFE;
+  --color-guo: #6B7280;
+  
+  --color-shadow: rgba(79, 172, 254, 0.15);
+  --color-shadow-dark: rgba(0, 0, 0, 0.08);
+  
+  --gradient-primary: linear-gradient(135deg, #4FACFE 0%, #43E97B 100%);
+  --gradient-bg: linear-gradient(180deg, #FFFFFF 0%, #F8FAFE 100%);
+  --gradient-card: linear-gradient(165deg, #FFFFFF 0%, #FAFCFF 100%);
+  
+  --font-family: var(--font-en);
+  
+  --paper-texture: none;
+}
+
+/* 英文主题 Dark 模式 */
+body.theme-en.dark {
+  --color-bg: #0F0F1A;
+  --color-bg-secondary: #1A1A2E;
+  --color-bg-card: #252538;
+  --color-bg-overlay: rgba(0, 0, 0, 0.6);
+  
+  --color-text: #E8E8F0;
+  --color-text-secondary: rgba(232, 232, 240, 0.6);
+  --color-text-tertiary: rgba(232, 232, 240, 0.35);
+  
+  --color-border: rgba(79, 172, 254, 0.25);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  
+  --gradient-bg: linear-gradient(180deg, #0F0F1A 0%, #1A1A2E 100%);
+  --gradient-card: linear-gradient(165deg, #252538 0%, #1F1F32 100%);
+}
+
+/* ===== 命运刻度条颜色档位 ===== */
+body.theme-zh {
+  --fate-level-1: #4A4A4A;  /* 暗淡 */
+  --fate-level-2: #6B6B6B;  /* 微光 */
+  --fate-level-3: #2D6A4F;  /* 明光 */
+  --fate-level-4: #3D8B6B;  /* 昼明 */
+  --fate-level-5: #CDA434;  /* 辉耀 */
+}
+
+body.theme-ja {
+  --fate-level-1: #7A7A7A;  /* 暗淡 */
+  --fate-level-2: #9A9A8A;  /* 微光 */
+  --fate-level-3: #A79473;  /* 明光 */
+  --fate-level-4: #B8A584;  /* 昼明 */
+  --fate-level-5: #C9B695;  /* 辉耀 */
+}
+
+body.theme-en {
+  --fate-level-1: #6B7280;  /* 暗淡 */
+  --fate-level-2: #9CA3AF;  /* 微光 */
+  --fate-level-3: #4FACFE;  /* 明光 */
+  --fate-level-4: #6DD5FA;  /* 昼明 */
+  --fate-level-5: #43E97B;  /* 辉耀 */
+}
 

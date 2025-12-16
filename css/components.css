@@ -1,0 +1,919 @@
+/**
+ * 功过格 App - 组件样式
+ * Component Styles for GongGuoGe App
+ */
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* 去除Android WebView点击高亮阴影 */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  tap-highlight-color: transparent;
+  /* 去除点击时的轮廓 */
+  outline: none;
+  /* 优化触摸反馈 */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* 允许文本输入框和内容区域可选择 */
+input,
+textarea,
+[contenteditable],
+[data-editable] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  font-family: var(--font-family, var(--font-zh));
+  transition: background var(--transition-normal);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 为所有可点击元素去除点击高亮 */
+a,
+button,
+[role="button"],
+[onclick],
+.cursor-pointer,
+[style*="cursor: pointer"],
+[style*="cursor:pointer"],
+div[onclick],
+span[onclick] {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* 列表项和卡片点击时去除高亮 */
+.list-item,
+.card-clickable,
+.menu-item,
+.settings-item,
+.link-item,
+.quick-btn,
+.type-tab,
+.amount-card,
+.day-cell {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* 确保所有交互元素都没有点击高亮 */
+*:active,
+*:focus {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== 手机壳框架 ===== */
+/* 已移除手机外观模拟，以下样式已禁用 */
+/*
+.phone-frame {
+  width: var(--phone-width);
+  height: var(--phone-height);
+  background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  border-radius: var(--phone-radius);
+  padding: 10px;
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--screen-radius);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  background: var(--gradient-bg);
+  font-family: var(--font-family);
+  scroll-behavior: smooth;
+}
+
+/* 纸张纹理 */
+.paper-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--paper-texture);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 灵动岛 */
+.dynamic-island {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 100;
+}
+*/
+
+
+/* 页面标签 (开发用) */
+.page-label {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  white-space: nowrap;
+  font-family: -apple-system, sans-serif;
+}
+
+.page-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+/* ===== 导航栏 ===== */
+.nav-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.back-btn:hover {
+  opacity: 1;
+  background: var(--color-border-light);
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
+.nav-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 2px;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+.nav-right {
+  width: 40px;
+}
+
+/* ===== 按钮 ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+  text-wrap: balance;
+  word-break: keep-all;
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-bg);
+  box-shadow: 0 4px 12px var(--color-shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--color-shadow);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--color-border-light);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background: var(--color-border);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.btn-ghost:hover {
+  background: var(--color-border-light);
+}
+
+.btn-danger {
+  background: var(--color-accent-red);
+  color: white;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ===== 卡片 ===== */
+.card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  box-shadow:
+    0 12px 40px var(--color-shadow),
+    0 4px 12px var(--color-shadow-dark),
+    inset 0 0 0 1px var(--color-border);
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 50px var(--color-shadow),
+    0 8px 20px var(--color-shadow-dark),
+    inset 0 0 0 1px var(--color-border);
+}
+
+.card-clickable {
+  cursor: pointer;
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.card-clickable:active {
+  transform: scale(0.98);
+}
+
+/* ===== 输入框 ===== */
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.5);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--color-text);
+  outline: none;
+  transition: all var(--transition-normal);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-shadow);
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+textarea.input {
+  resize: none;
+  min-height: 120px;
+}
+
+/* ===== 表单验证样式 ===== */
+.input-error {
+  border-color: var(--color-error, #ff4444) !important;
+  background-color: rgba(255, 68, 68, 0.05) !important;
+}
+
+.input-valid {
+  border-color: var(--color-success, #4caf50) !important;
+}
+
+.input-error-msg {
+  font-size: 12px;
+  color: var(--color-error, #ff4444);
+  margin-top: 6px;
+  padding-left: 4px;
+  line-height: 1.4;
+  animation: slideDown 0.2s ease-out;
+  display: block;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 开发环境验证码提示样式 */
+.dev-code-hint {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px 0;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+/* 表单组容器，确保错误信息正确显示 */
+.form-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+/* 验证码输入框容器 */
+.code-inputs-wrapper {
+  margin: 24px 0;
+  position: relative;
+}
+
+.code-inputs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.code-error-msg {
+  font-size: 12px;
+  color: var(--color-error, #ff4444);
+  margin-top: 8px;
+  text-align: center;
+  animation: slideDown 0.2s ease-out;
+  min-height: 16px;
+}
+
+/* ===== 标签 ===== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.tag-gong {
+  background: rgba(45, 106, 79, 0.1);
+  color: var(--color-gong);
+}
+
+body.theme-ja .tag-gong {
+  background: rgba(167, 148, 115, 0.1);
+}
+
+body.theme-en .tag-gong {
+  background: rgba(79, 172, 254, 0.1);
+}
+
+.tag-guo {
+  background: var(--color-border-light);
+  color: var(--color-guo);
+}
+
+/* ===== 分割线 ===== */
+.divider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--spacing-md) 0;
+}
+
+.divider-vertical {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  background: linear-gradient(180deg,
+      transparent 0%,
+      var(--color-border) 20%,
+      var(--color-border) 80%,
+      transparent 100%);
+}
+
+/* ===== Tab 切换 ===== */
+.tabs {
+  display: flex;
+  gap: 0;
+  background: var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-text);
+  opacity: 0.4;
+  cursor: pointer;
+  border-radius: calc(var(--radius-md) - 2px);
+  transition: all var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.tab.active {
+  background: var(--color-primary);
+  color: var(--color-bg);
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+.tab.active.guo {
+  background: var(--color-secondary);
+}
+
+.tab:not(.active):hover {
+  opacity: 0.7;
+}
+
+/* ===== 列表项 ===== */
+.list-item {
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-lg) 0;
+  border-bottom: 1px solid var(--color-border-light);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.list-item:hover {
+  background: var(--color-border-light);
+  margin: 0 calc(var(--spacing-lg) * -1);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 6px;
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.item-dot.gong {
+  background: var(--color-gong);
+}
+
+.item-dot.guo {
+  background: var(--color-guo);
+  opacity: 0.6;
+}
+
+.item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.item-time {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.item-desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+/* ===== 头像 ===== */
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4c5b5 0%, #c4b5a5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--color-shadow-dark);
+  transition: transform var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+}
+
+.avatar:active {
+  transform: scale(0.95);
+}
+
+.avatar-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+}
+
+/* ===== 遮罩层 ===== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg-overlay);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 在手机屏幕内的遮罩 */
+.screen-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg-overlay);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+  cursor: pointer;
+}
+
+.screen-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===== 滚动区域 ===== */
+.scroll-area {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== 空状态 ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2xl);
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.3;
+}
+
+.empty-text {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 1px;
+}
+
+/* ===== 加载状态 ===== */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===== FAB 悬浮按钮 ===== */
+.fab {
+  position: absolute;
+  bottom: 100px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--color-shadow);
+  z-index: 10;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  /* 去除点击高亮 */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.fab:hover {
+  transform: scale(1.15) rotate(90deg);
+  box-shadow: 0 12px 32px var(--color-shadow);
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.fab span {
+  font-size: 32px;
+  color: var(--color-bg);
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ===== 提示文字 ===== */
+.hint {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 1px;
+}
+
+/* ===== 命运刻度条 ===== */
+.fate-index-bar {
+  position: relative;
+  width: 100%;
+  padding: var(--spacing-md);
+  background: var(--color-border-light);
+  border-radius: var(--radius-lg);
+}
+
+.fate-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fate-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow) ease-in-out, background var(--transition-slow);
+}
+
+.fate-bar-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--spacing-sm);
+}
+
+.fate-level-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 2px;
+  transition: color var(--transition-slow);
+}
+
+.fate-score {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+/* ===== 文字适配 ===== */
+.auto-fit {
+  text-wrap: balance;
+  word-break: keep-all;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.title-text {
+  text-wrap: balance;
+  word-break: keep-all;
+  hyphens: none;
+}
+
+/* 多语言字距调整 */
+html[lang="zh"] .title-text,
+body.theme-zh .title-text {
+  letter-spacing: 0.05em;
+}
+
+html[lang="ja"] .title-text,
+body.theme-ja .title-text {
+  letter-spacing: 0.08em;
+}
+
+html[lang="en"] .title-text,
+body.theme-en .title-text {
+  letter-spacing: normal;
+}
+
+/* ===== 竖排文字 (仅中文主题) ===== */
+body.theme-zh .vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.1em;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 420px) {
+  /* 已移除手机框架响应式样式 */
+}
+
+/* ===== App 嵌入模式 ===== */
+/* 
+ * 使用方法：
+ * 1. 在 body 上添加 class="app-embedded"
+ * 2. 或者通过 JS: document.body.classList.add('app-embedded')
+ * 
+ * Android WebView:
+ *   webView.evaluateJavascript("document.body.classList.add('app-embedded')", null);
+ * 
+ * iOS WKWebView:
+ *   webView.evaluateJavaScript("document.body.classList.add('app-embedded')");
+ */
+
+/* 隐藏模拟元素 */
+/* 已移除手机外观模拟，以下样式已禁用 */
+/*
+body.app-embedded .dynamic-island,
+body.app-embedded .home-indicator,
+body.app-embedded .page-label {
+  display: none !important;
+}
+*/
+
+/* 全屏布局 - 移除手机壳 */
+/* 已移除手机外观模拟，以下样式已禁用 */
+/*
+body.app-embedded {
+  padding: 0;
+  margin: 0;
+  background: var(--gradient-bg);
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+body.app-embedded .phone-frame {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+body.app-embedded .phone-screen {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  border-radius: 0;
+  background: var(--gradient-bg);
+}
+*/
+
+/* Safe Area 适配 - 自动适配刘海屏/灵动岛/底部手势区 */
+/* 已移除手机外观模拟，以下样式已禁用 */
+/*
+body.app-embedded .nav-header {
+  padding-top: calc(env(safe-area-inset-top, 20px) + 16px);
+  padding-left: calc(env(safe-area-inset-left, 0px) + 20px);
+  padding-right: calc(env(safe-area-inset-right, 0px) + 20px);
+}
+
+body.app-embedded .header {
+  padding-top: calc(env(safe-area-inset-top, 20px) + 16px);
+  padding-left: calc(env(safe-area-inset-left, 0px) + 24px);
+  padding-right: calc(env(safe-area-inset-right, 0px) + 24px);
+}
+
+body.app-embedded .phone-screen {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+body.app-embedded .fab {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+
+body.app-embedded .menu-overlay,
+body.app-embedded .success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+body.app-embedded .screen-overlay {
+  position: fixed;
+}
+
+@media (orientation: landscape) {
+  body.app-embedded .phone-screen {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+*/
