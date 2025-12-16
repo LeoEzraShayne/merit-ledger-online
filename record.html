@@ -913,6 +913,11 @@
   <script src="js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // 确保 i18n 翻译先执行
+      if (window.i18n && window.i18n.updatePageTexts) {
+        window.i18n.updatePageTexts();
+      }
+      
       var t = window.i18n ? window.i18n.t : function (k) { return k; };
 
       // 获取 URL 参数
@@ -956,9 +961,13 @@
         });
       });
 
-      // 返回
+      // 返回按钮：跳转到 home.html
       document.getElementById('backBtn').addEventListener('click', function () {
-        window.history.back();
+        if (window.app && window.app.navigateTo) {
+          window.app.navigateTo('home');
+        } else {
+          window.location.href = 'home.html';
+        }
       });
 
       // 保存
