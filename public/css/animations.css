@@ -1,0 +1,703 @@
+/**
+ * 功过格 App - 动画系统
+ * Animation System for GongGuoGe App
+ */
+
+/* ===== 基础动画 ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===== 入场动画类 ===== */
+.anim-fade-in {
+  animation: fadeIn var(--transition-normal) ease-out forwards;
+}
+
+.anim-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.anim-slide-down {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+.anim-scale-in {
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 延迟动画 */
+.anim-delay-1 { animation-delay: 0.1s; }
+.anim-delay-2 { animation-delay: 0.2s; }
+.anim-delay-3 { animation-delay: 0.3s; }
+.anim-delay-4 { animation-delay: 0.4s; }
+.anim-delay-5 { animation-delay: 0.5s; }
+
+/* ===== 中文主题 - 盖章动画 ===== */
+.stamp-animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(253, 251, 247, 0.95);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stamp-animation-container.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.stamp {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #C53D43;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #C53D43;
+  letter-spacing: 4px;
+  transform: scale(2) rotate(-15deg);
+  opacity: 0;
+  position: relative;
+  background: rgba(253, 251, 247, 0.9);
+}
+
+.stamp-animation-container.show .stamp {
+  animation: stampPress 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes stampPress {
+  0% {
+    transform: scale(2) rotate(-15deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(-5deg);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(0.95) rotate(0deg);
+  }
+  70% {
+    transform: scale(1.02) rotate(1deg);
+  }
+  80% {
+    transform: scale(0.98) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* 盖章震动效果 */
+.stamp.shake {
+  animation: stampShake 0.3s ease-out;
+}
+
+@keyframes stampShake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  25% { transform: translateX(-3px) rotate(-1deg); }
+  50% { transform: translateX(3px) rotate(1deg); }
+  75% { transform: translateX(-2px) rotate(-0.5deg); }
+}
+
+/* 墨迹飞溅 */
+.ink-particles {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  pointer-events: none;
+}
+
+.ink-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #C53D43;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.stamp-animation-container.show .ink-particle {
+  animation: inkSplash 0.6s ease-out forwards;
+}
+
+@keyframes inkSplash {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(
+      calc(-50% + var(--x, 0px)),
+      calc(-50% + var(--y, 0px))
+    ) scale(1);
+    opacity: 0;
+  }
+}
+
+.ink-particle:nth-child(1) { top: 50%; left: 50%; --x: 0; --y: 0; animation-delay: 0.1s; }
+.ink-particle:nth-child(2) { top: 30%; left: 30%; --x: -40px; --y: -30px; animation-delay: 0.15s; }
+.ink-particle:nth-child(3) { top: 30%; left: 70%; --x: 40px; --y: -30px; animation-delay: 0.2s; }
+.ink-particle:nth-child(4) { top: 70%; left: 30%; --x: -40px; --y: 30px; animation-delay: 0.25s; }
+.ink-particle:nth-child(5) { top: 70%; left: 70%; --x: 40px; --y: 30px; animation-delay: 0.3s; }
+.ink-particle:nth-child(6) { top: 20%; left: 50%; --x: 0; --y: -50px; animation-delay: 0.35s; }
+.ink-particle:nth-child(7) { top: 80%; left: 50%; --x: 0; --y: 50px; animation-delay: 0.4s; }
+.ink-particle:nth-child(8) { top: 50%; left: 20%; --x: -50px; --y: 0; animation-delay: 0.45s; }
+
+.stamp-text {
+  margin-top: 24px;
+  font-size: 18px;
+  color: #2D6A4F;
+  letter-spacing: 4px;
+  opacity: 0;
+}
+
+.stamp-animation-container.show .stamp-text {
+  animation: fadeIn 0.4s ease-out 0.4s forwards;
+}
+
+/* ===== 日文主题 - 水墨涟漪动画 ===== */
+.ripple-animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(247, 247, 245, 0.95);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple-animation-container.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.ink-drop {
+  width: 20px;
+  height: 20px;
+  background: #A79473;
+  border-radius: 50%;
+  position: relative;
+  opacity: 0;
+}
+
+.ripple-animation-container.show .ink-drop {
+  animation: inkDrop 0.3s ease-out forwards;
+}
+
+@keyframes inkDrop {
+  0% {
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0.8;
+  }
+}
+
+.ripple-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #A79473;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.ripple-animation-container.show .ripple-ring {
+  animation: rippleExpand 1s ease-out forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(15);
+    opacity: 0;
+  }
+}
+
+.ripple-ring:nth-child(2) { animation-delay: 0.2s; }
+.ripple-ring:nth-child(3) { animation-delay: 0.4s; }
+.ripple-ring:nth-child(4) { animation-delay: 0.6s; }
+
+.ripple-text {
+  position: absolute;
+  top: 60%;
+  font-size: 16px;
+  color: #A79473;
+  letter-spacing: 6px;
+  opacity: 0;
+}
+
+.ripple-animation-container.show .ripple-text {
+  animation: fadeIn 0.5s ease-out 0.5s forwards;
+}
+
+/* 禅意呼吸动画 */
+@keyframes zenBreathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.zen-breathing {
+  animation: zenBreathing 4s ease-in-out infinite;
+}
+
+/* ===== 英文主题 - Confetti动画 ===== */
+.confetti-animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.confetti-animation-container.show {
+  opacity: 1;
+  pointer-events: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+}
+
+.confetti-animation-container.show .confetti {
+  animation: confettiFall 1.5s ease-out forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* 生成多个confetti */
+.confetti:nth-child(1) { left: 10%; background: #4FACFE; animation-delay: 0s; }
+.confetti:nth-child(2) { left: 20%; background: #43E97B; animation-delay: 0.1s; width: 8px; height: 8px; }
+.confetti:nth-child(3) { left: 30%; background: #4FACFE; animation-delay: 0.2s; }
+.confetti:nth-child(4) { left: 40%; background: #43E97B; animation-delay: 0.05s; width: 12px; height: 12px; }
+.confetti:nth-child(5) { left: 50%; background: #4FACFE; animation-delay: 0.15s; }
+.confetti:nth-child(6) { left: 60%; background: #43E97B; animation-delay: 0.25s; width: 6px; height: 6px; }
+.confetti:nth-child(7) { left: 70%; background: #4FACFE; animation-delay: 0.1s; }
+.confetti:nth-child(8) { left: 80%; background: #43E97B; animation-delay: 0.2s; width: 10px; height: 10px; }
+.confetti:nth-child(9) { left: 90%; background: #4FACFE; animation-delay: 0.05s; }
+.confetti:nth-child(10) { left: 15%; background: #FF6B6B; animation-delay: 0.15s; width: 8px; height: 8px; }
+.confetti:nth-child(11) { left: 25%; background: #FFE66D; animation-delay: 0.25s; }
+.confetti:nth-child(12) { left: 35%; background: #4ECDC4; animation-delay: 0.3s; width: 7px; height: 7px; }
+.confetti:nth-child(13) { left: 45%; background: #FF6B6B; animation-delay: 0.08s; }
+.confetti:nth-child(14) { left: 55%; background: #FFE66D; animation-delay: 0.18s; width: 9px; height: 9px; }
+.confetti:nth-child(15) { left: 65%; background: #4ECDC4; animation-delay: 0.28s; }
+.confetti:nth-child(16) { left: 75%; background: #FF6B6B; animation-delay: 0.12s; width: 11px; height: 11px; }
+.confetti:nth-child(17) { left: 85%; background: #FFE66D; animation-delay: 0.22s; }
+.confetti:nth-child(18) { left: 5%; background: #4ECDC4; animation-delay: 0.32s; width: 8px; height: 8px; }
+.confetti:nth-child(19) { left: 95%; background: #4FACFE; animation-delay: 0.02s; }
+.confetti:nth-child(20) { left: 50%; background: #43E97B; animation-delay: 0.35s; width: 14px; height: 14px; }
+
+.confetti-text {
+  position: relative;
+  z-index: 10;
+  font-size: 24px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #4FACFE 0%, #43E97B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+}
+
+.confetti-animation-container.show .confetti-text {
+  animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+/* ===== 命运刻度条动画 ===== */
+.fate-bar-animate {
+  transition: width 0.5s ease-in-out, background 0.5s ease-in-out;
+}
+
+/* 中文主题 - 墨色渐变 */
+body.theme-zh .fate-bar-fill {
+  background: linear-gradient(90deg, 
+    var(--fate-level-1) 0%, 
+    var(--color-primary) 50%, 
+    var(--color-accent) 100%
+  );
+  background-size: 200% 100%;
+  animation: inkFlow 3s ease-in-out infinite;
+}
+
+@keyframes inkFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* 日文主题 - 禅意呼吸 */
+body.theme-ja .fate-bar-fill {
+  background: var(--color-primary);
+  position: relative;
+}
+
+body.theme-ja .fate-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: zenGlow 3s ease-in-out infinite;
+}
+
+@keyframes zenGlow {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: translateX(-100%);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: translateX(100%);
+  }
+}
+
+/* 英文主题 - 渐变条 */
+body.theme-en .fate-bar-fill {
+  background: linear-gradient(90deg, #4FACFE 0%, #43E97B 100%);
+}
+
+/* ===== 菜单动画 ===== */
+.menu-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu {
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: transform var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1), 
+              opacity var(--transition-normal);
+}
+
+.menu-overlay.show .dropdown-menu {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ===== 弹窗动画 ===== */
+.modal-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  transition: transform var(--transition-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity var(--transition-normal);
+}
+
+.modal-overlay.show .modal-content {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* ===== 数字跳动动画 ===== */
+@keyframes numberPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.number-pulse {
+  animation: numberPulse 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ===== 卡片入场动画 ===== */
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-reveal {
+  animation: cardReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ===== 图表柱状动画 ===== */
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.bar-animate {
+  transform-origin: bottom;
+  animation: barGrow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ===== 字符逐个显现 ===== */
+@keyframes charReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.char-reveal {
+  animation: charReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ===== Splash页面特殊动画 ===== */
+@keyframes inkSpread {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+.ink-splash {
+  animation: inkSpread 2s ease-out forwards;
+}
+
+@keyframes lineExpand {
+  to { width: 50px; }
+}
+
+@keyframes diamondPop {
+  to { transform: rotate(45deg) scale(1); }
+}
+
+@keyframes logoPop {
+  to { transform: scale(1); }
+}
+
+@keyframes fabPop {
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ===== 页面过渡效果 ===== */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity var(--transition-normal), transform var(--transition-normal);
+}
+
+/* ===== 按钮点击波纹 ===== */
+.click-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: clickRipple 0.6s ease-out;
+  pointer-events: none;
+}
+
+@keyframes clickRipple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ===== 骨架屏动画 ===== */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border-light) 25%,
+    var(--color-border) 50%,
+    var(--color-border-light) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
